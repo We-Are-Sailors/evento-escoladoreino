@@ -3,7 +3,7 @@
 Sign-up page for the free live class (Escatologia Completa, Eduardo Reis, Thu 2026-11-05 20:00 BRT).
 Flow: `/` (capture form) → `/grupo` (button to the WhatsApp group, where the class link is sent).
 
-- Worker `evento-escoladoreino` — https://escatologia.escoladoreino.com (also https://evento-escoladoreino.polaris-web.workers.dev). Push to `main` deploys. See CLAUDE.md for the full guide.
+- Worker `evento-escoladoreino` — https://escatologia.escoladoreino.com (workers.dev URL disabled). Push to `main` deploys. See CLAUDE.md for the full guide.
 - Writes into the **same D1 as escoladoreino.com** (`escoladoreino-club`): each sign-up is a `leads`
   row (status `cadastrou`, `landing_path=/aula-arrebatamento`) + an `aula_inscricao` event; clicks on
   the group button add an `aula_grupo` event. They show up in escoladoreino.com/admin → Leads.
@@ -17,10 +17,11 @@ Flow: `/` (capture form) → `/grupo` (button to the WhatsApp group, where the c
 Set `WHATSAPP_GROUP_URL` in `wrangler.jsonc` (must start with `https://chat.whatsapp.com/`) and run
 `npm run deploy`. Until then `/grupo` shows "convite sendo liberado" and re-checks every 30 s.
 
-## Custom subdomain
+## Custom domain
 
-Add to `wrangler.jsonc`: `"routes": [{ "pattern": "aula.escoladoreino.com", "custom_domain": true }]`,
-set `"workers_dev": false`, deploy.
+`escatologia.escoladoreino.com` is a Workers custom domain (`routes` in `wrangler.jsonc`); the
+escoladoreino.com zone is on Cloudflare nameservers, so Cloudflare manages the DNS record.
+`workers_dev` is `false`.
 
 ## Local
 

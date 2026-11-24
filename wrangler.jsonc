@@ -3,17 +3,14 @@
   // Sign-up page for the free live class "O arrebatamento no final dos tempos"
   // (Escatologia Completa, Eduardo Reis). Its own Worker, separate from the main site
   // Worker "escoladoreinoclub" (escoladoreino.com) — never deploy over that one.
-  // For now it runs on its workers.dev address; add the Escola do Reino subdomain
-  // later under "routes" (custom_domain) and set workers_dev to false.
   "name": "evento-escoladoreino",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
   "observability": { "enabled": true },
-  // escatologia.escoladoreino.com: custom domain added in the dashboard (2026-10-31). Public DNS
-  // for escoladoreino.com is served by Hostinger (dns-parking), not Cloudflare, so the
-  // subdomain also needs a record there: CNAME escatologia -> escoladoreino.com.
+  // escatologia.escoladoreino.com: Workers custom domain (Cloudflare creates the DNS record;
+  // the escoladoreino.com zone uses Cloudflare nameservers). workers.dev is off: only this domain answers.
   "routes": [{ "pattern": "escatologia.escoladoreino.com", "custom_domain": true }],
-  "workers_dev": true,
+  "workers_dev": false,
   "preview_urls": false,
 
   // Static pages live in ./public; only /api/*, /entrar and /admin/* run the Worker.

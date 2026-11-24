@@ -8,7 +8,7 @@ code, comments and commits stay in English.
 Capture page for the free live class **"O arrebatamento no final dos tempos"** (series Escatologia
 Completa, teacher Eduardo Reis, Thu 2026-11-05 20:00 BRT) of the Escola do Reino.
 
-- Live: https://escatologia.escoladoreino.com (also https://evento-escoladoreino.polaris-web.workers.dev)
+- Live: https://escatologia.escoladoreino.com (workers.dev URL disabled: `workers_dev: false`)
 - Flow: `/` (event page + 3-step form: name → WhatsApp → e-mail + consent) → `/grupo`
   (button to the WhatsApp group; the class link is only sent inside the group).
 - One Cloudflare Worker (`evento-escoladoreino`) serving static files from `public/` and a few
@@ -37,8 +37,10 @@ Completa, teacher Eduardo Reis, Thu 2026-11-05 20:00 BRT) of the Escola do Reino
 | WhatsApp group cover image | `entregas/icone/icone.html` (render to PNG 2160×2160) |
 
 - **WhatsApp group link:** `WHATSAPP_GROUP_URL` in `wrangler.jsonc`. Change it, push.
-- **Class date/time:** appears in `public/index.html` (`data-countdown="2026-11-05T20:00:00-03:00"`,
-  twice, plus visible texts "5 de novembro", "Qui · 05/11 · 20h", ticker, sticky bar),
+- **Class date/time:** single constant `window.AULA = { inicio, fimHoras }` in the `<head>` of
+  `public/index.html` (drives both countdowns and the "aula encerrada" state: `fimHoras` after the start,
+  `<html>` gets `.ended`, which hides `.only-live` and shows `.only-ended`: the form becomes a card
+  pointing to https://escoladoreino.com/planos). Visible texts also mention it "5 de novembro", "Qui · 05/11 · 20h", ticker, sticky bar),
   `public/grupo.html` (recap list) and `AULA_NOME` in `wrangler.jsonc`.
 
 ## Data (important)
